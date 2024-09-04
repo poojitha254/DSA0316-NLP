@@ -1,0 +1,25 @@
+import re
+
+# Sample text
+text = "The Python 3.0 version was released in 2008. Python is popular."
+pattern= "Python"
+# 1. Search for the first occurrence of 'Python'
+match = re.search("Python", text)
+if match:
+    print("Found:",pattern)
+else:
+    print("not found")
+
+# 2. Find all occurrences of 'Python'
+all_matches = re.findall("Python", text)
+print("All occurrences:", all_matches)
+
+# 3. Replace 'Python' with 'Java'
+new_text = re.sub("Python", "Java", text)
+print("After replacement: ",new_text)
+
+OUTPUT
+Found: Python
+All occurrences: ['Python', 'Python']
+After replacement: The Java 3.0 version was released in 2008. Java is popular.
+
