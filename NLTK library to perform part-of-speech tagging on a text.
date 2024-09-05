@@ -1,0 +1,30 @@
+import nltk
+
+# Step 1: Download NLTK resources (only needed once)
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
+# Step 2: Tokenize the text
+def tokenize_text(text):
+    return nltk.word_tokenize(text)
+
+# Step 3: Perform POS tagging
+def pos_tagging(tokens):
+    return nltk.pos_tag(tokens)
+
+# Example usage
+text = "NLTK is a powerful library for natural language processing tasks."
+
+# Tokenize the text
+tokens = tokenize_text(text)
+
+# Perform POS tagging
+tagged_tokens = pos_tagging(tokens)
+
+# Output the tagged tokens
+print(tagged_tokens)
+
+
+
+OUTPUT
+[('NLTK', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('powerful', 'JJ'), ('library', 'NN'), ('for', 'IN'), ('natural', 'JJ'), ('language', 'NN'), ('processing', 'NN'), ('tasks', 'NNS'), ('.', '.')]
