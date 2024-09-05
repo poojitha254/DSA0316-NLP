@@ -1,0 +1,40 @@
+import random
+from collections import defaultdict
+
+# Step 1: Tokenize the text
+def tokenize(text):
+    return text.lower().split()
+
+# Step 2: Build the bigram model
+def build_bigrams(tokens):
+    bigrams = defaultdict(list)
+    for i in range(len(tokens) - 1):
+        bigrams[tokens[i]].append(tokens[i + 1])
+    return bigrams
+
+# Step 3: Generate text
+def generate_text(bigrams, start_word, num_words=10):
+    current_word = start_word
+    text = [current_word]
+    
+    for _ in range(num_words - 1):
+        if current_word not in bigrams or not bigrams[current_word]:
+            break  # Stop if there are no next words
+        next_word = random.choice(bigrams[current_word])
+        text.append(next_word)
+        current_word = next_word
+    
+    return ' '.join(text)
+
+# Example usage
+text = "This is a simple example of a bigram model for generating text. Bigram models are useful."
+tokens = tokenize(text)
+bigrams = build_bigrams(tokens)
+
+start_word = 'this'
+generated_text = generate_text(bigrams, start_word, num_words=10)
+generated_text
+
+
+OUTPUT
+this is a simple example of a bigram models are
