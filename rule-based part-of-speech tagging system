@@ -1,0 +1,40 @@
+import re
+
+# Define a list of (regex pattern, tag) rules
+rules = [
+    (r'.*ing$', 'VBG'),  # gerunds (e.g., running)
+    (r'.*ed$', 'VBD'),   # past tense verbs (e.g., walked)
+    (r'.*es$', 'VBZ'),   # 3rd person singular present verbs (e.g., runs)
+    (r'.*ould$', 'MD'),  # modal verbs (e.g., could, would)
+    (r'.*\'s$', 'POS'),  # possessive nouns (e.g., dog's)
+    (r'.*s$', 'NNS'),    # plural nouns (e.g., cats)
+    (r'^-?[0-9]+(.[0-9]+)?$', 'CD'),  # cardinal numbers (e.g., 123, 4.56)
+    (r'.*', 'NN')        # default: nouns
+]
+
+# Function to assign tags based on rules
+def rule_based_pos_tag(sentence):
+    tags = []
+    
+    for word in sentence.split():
+        tag = None
+        for pattern, pos in rules:
+            if re.match(pattern, word):
+                tag = pos
+                break
+        tags.append((word, tag))
+    
+    return tags
+
+# Example usage
+sentence = "The dogs are running and chased the cat's ball."
+tagged_sentence = rule_based_pos_tag(sentence)
+
+
+OUTPUT
+[('The', 'NN'), ('dogs', 'NNS'), ('are', 'NN'), ('running', 'VBG'), ('and', 'NN'), ('chased', 'VBD'), ('the', 'NN'), ("cat's", 'POS'), ('ball.', 'NN')]
+
+
+
+# Output the tagged sentence
+print(tagged_sentence)
