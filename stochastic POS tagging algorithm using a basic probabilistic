@@ -1,0 +1,46 @@
+import random
+from collections import defaultdict
+
+# Sample training data: word-tag pairs
+train_data = [
+    ('the', 'DT'), ('cat', 'NN'), ('sat', 'VBD'), ('on', 'IN'), ('the', 'DT'), ('mat', 'NN'),
+    ('the', 'DT'), ('dog', 'NN'), ('barked', 'VBD'), ('loudly', 'RB')
+]
+
+# Step 1: Train the model
+def train_pos_tagger(train_data):
+    word_tag_counts = defaultdict(list)
+    
+    for word, tag in train_data:
+        word_tag_counts[word].append(tag)
+    
+    return word_tag_counts
+
+# Step 2: Predict the tag for a word
+def predict_tag(word, word_tag_counts):
+    if word in word_tag_counts:
+        return random.choice(word_tag_counts[word])
+    else:
+        return 'NN'  # Default tag for unknown words
+
+# Step 3: Perform POS tagging on a new sentence
+def pos_tag(sentence, word_tag_counts):
+    tags = []
+    for word in sentence.split():
+        tag = predict_tag(word.lower(), word_tag_counts)
+        tags.append((word, tag))
+    return tags
+
+# Train the model
+word_tag_counts = train_pos_tagger(train_data)
+
+# Example usage: Tagging a new sentence
+sentence = "The dog sat on the mat"
+tagged_sentence = pos_tag(sentence, word_tag_counts)
+
+# Output the tagged sentence
+print(tagged_sentence)
+
+
+OUTPUT:
+[('The', 'DT'), ('dog', 'NN'), ('sat', 'VBD'), ('on', 'IN'), ('the', 'DT'), ('mat', 'NN')]
